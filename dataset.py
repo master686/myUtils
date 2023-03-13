@@ -1,10 +1,8 @@
 import os
-
-import numpy
 import numpy as np
 import yaml
 
-
+# 修改训练集label文件
 def fix_label_train():
     # 打开COCO配置文件
     with open('../data/coco_kpts.yaml', encoding='UTF-8') as f:
@@ -29,7 +27,7 @@ def fix_label_train():
                 fixed_train_label = np.delete(train_labels[i], np.arange(-13, -1))
                 fixed_train_labels.append(fixed_train_label)  # 删除后的新数组追加到一起，构成一个新列表
             fixed_train_labels = np.array(fixed_train_labels, dtype=np.float32)  # 转为numpy数组
-            print("文件路径：" + file + ',' + "修改前:" + train_labels.shape + ',' + "修改后:" + fixed_train_labels.shape)
+            print("文件路径：" + str(file) + "," + "修改前:" + str(train_labels.shape) + "," + "修改后:" + str(fixed_train_labels.shape))
             f.close()
         # 打开文件，写
         with open(file, "w") as f:
@@ -46,7 +44,7 @@ def fix_label_train():
                 f.write('\n')  # 每组标签用换行符隔开
             f.close()
 
-
+# 修改验证集label文件
 def fix_label_val():
     # 打开COCO配置文件
     with open('../data/coco_kpts.yaml', encoding='UTF-8') as f:
@@ -71,7 +69,7 @@ def fix_label_val():
                 fixed_val_label = np.delete(val_labels[i], np.arange(-13, -1))
                 fixed_val_labels.append(fixed_val_label)  # 删除后的新数组追加到一起，构成一个新列表
             fixed_val_labels = np.array(fixed_val_labels, dtype=np.float32)  # 转为numpy数组
-            print("文件路径：" + str(file) + "," + "修改前:" + str(val_labels.shape) + ","+ "修改后:" + str(fixed_val_labels.shape))
+            print("文件路径：" + str(file) + "," + "修改前:" + str(val_labels.shape) + "," + "修改后:" + str(fixed_val_labels.shape))
             f.close()
         # 打开文件，写
         with open(file, "w") as f:
@@ -90,4 +88,4 @@ def fix_label_val():
 
 
 if __name__ == '__main__':
-     fix_label_val()
+    fix_label_val()
